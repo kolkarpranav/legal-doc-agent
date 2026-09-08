@@ -1,33 +1,30 @@
-import time
 import os
-from google import genai
+import time
+import google.generativeai as genai
 from dotenv import load_dotenv
 
 load_dotenv()
 
-# Initialise the new google-genai client
-_client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-MODEL = "gemini-3.6-flash"
-
 def call_llm(prompt: str, retries: int = 3) -> str:
-    """Call Gemini LLM with retry logic for rate-limit (429) errors."""
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        raise ValueError("GEMINI_API_KEY is not set.")
+
+    genai.configure(api_key=api_key)
+    model = genai.GenerativeModel("gemini-1.5-flash")
+
     for attempt in range(retries):
         try:
-            response = _client.models.generate_content(
-                model=MODEL,
-                contents=prompt,
-            )
+            response = model.generate_content(prompt)
             return response.text
         except Exception as e:
             error_str = str(e)
-            if "429" in error_str or "quota" in error_str.lower() or "RESOURCE_EXHAUSTED" in error_str:
+            if "429" in error_str or "quota" in error_str.lower():
                 if attempt < retries - 1:
                     wait_time = 60
-                    print(f"      [RATE LIMIT] Waiting {wait_time}s before retry {attempt + 2}/{retries}...")
+                    print(f"Rate limit hit. Waiting {wait_time}s... retry {attempt + 2}/{retries}")
                     time.sleep(wait_time)
                 else:
-                    print("      [ERROR] Rate limit hit and retries exhausted.")
-                    print("      Tip: Wait 1 minute and run again, or get a paid Gemini key.")
-                    raise
+                    raise RuntimeError("Gemini rate limit reached. Wait 1 minute and retry.") from e
             else:
                 raise
