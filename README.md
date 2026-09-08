@@ -46,7 +46,7 @@ streamlit run app.py
 
 ## Links
 - **Working Application (Streamlit Cloud)**: https://kolkarpranav-legal-doc-agent-app-ektyet.streamlit.app/
-- **Video Demo (Loom)**: [Insert Link Here]
+- **Video Demo (Loom)**: https://drive.google.com/file/d/1tMHoz1KzvHA9Cs7c8QqkH4H8kT5wb5q5/view?usp=drive_link
 
 ## Design Decisions
 
