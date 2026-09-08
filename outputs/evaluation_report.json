@@ -1,0 +1,54 @@
+{
+  "case_title": "Writ Petition No. 1847 of 2026",
+  "overall_score": 78,
+  "status": "PASS",
+  "dimensions": [
+    {
+      "name": "Entity Accuracy",
+      "score": 20,
+      "max": 20,
+      "type": "LLM",
+      "status": "PASS"
+    },
+    {
+      "name": "Completeness",
+      "score": 5,
+      "max": 20,
+      "type": "Deterministic",
+      "status": "FAIL"
+    },
+    {
+      "name": "Structure",
+      "score": 15,
+      "max": 15,
+      "type": "Deterministic",
+      "status": "PASS"
+    },
+    {
+      "name": "Consistency",
+      "score": 8,
+      "max": 15,
+      "type": "Deterministic",
+      "status": "FAIL"
+    },
+    {
+      "name": "Template Fidelity",
+      "score": 20,
+      "max": 20,
+      "type": "LLM",
+      "status": "PASS"
+    },
+    {
+      "name": "Hallucination",
+      "score": 10,
+      "max": 10,
+      "type": "LLM",
+      "status": "PASS"
+    }
+  ],
+  "issues": [
+    "[Completeness] \u2014 Missing sections: Cause Title \u2014 Caught by: check_all_10_sections_present",
+    "[Consistency] \u2014 Inconsistent respondent numbers found \u2014 Caught by: check_respondent_number_consistency"
+  ],
+  "evidence_sources": null
+}
